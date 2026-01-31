@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, ContactShadows, Environment, RoundedBox } from '@react-three/drei';
-import { EffectComposer, Bloom } from '@react-three/postprocessing'; 
+import { OrbitControls, PerspectiveCamera, Environment, RoundedBox } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
-// THE FUYCKING CUBE
-function RotatingCube({ customColor, isNeon }) {
+// THE FUCKING CUBE
+function RotatingCube({ caseColor, keyColor, isNeon }) {
   const meshRef = useRef();
 
   useFrame((state, delta) => {
@@ -23,11 +23,10 @@ function RotatingCube({ customColor, isNeon }) {
     <group ref={meshRef}>
       <RoundedBox args={[4.2, 0.5, 1.8]} radius={0.1} smoothness={4}>
         <meshStandardMaterial 
-          color={customColor}
+          color={caseColor}
           metalness={0.6}
           roughness={0.2}
-          // NI GLOW NA
-          emissive={isNeon ? customColor : "black"}
+          emissive={isNeon ? caseColor : "black"}
           emissiveIntensity={isNeon ? 2 : 0} 
         />
       </RoundedBox>
@@ -35,31 +34,33 @@ function RotatingCube({ customColor, isNeon }) {
       {keys.map((pos, index) => (
         <mesh key={index} position={pos}>
           <boxGeometry args={[0.24, 0.1, 0.24]} />
-          <meshStandardMaterial color="#1e1e1e" roughness={0.4} />
+          <meshStandardMaterial 
+            color={keyColor} 
+            roughness={0.4} 
+          />
         </mesh>
       ))}
     </group>
   );
 }
 
-export default function KeyboardModel({ currentBuildColor, isNeon }) {
+export default function KeyboardModel({ caseColor, keyColor, isNeon }) {
   return (
     <div className="w-full h-full relative">
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 2, 5]} />
         
-        {/* NEON MODE */}
         <ambientLight intensity={isNeon ? 0.2 : 0.5} />
         <Environment preset="city" /> 
 
-        <RotatingCube customColor={currentBuildColor} isNeon={isNeon} />
+        <RotatingCube caseColor={caseColor} keyColor={keyColor} isNeon={isNeon} />
         
         {isNeon && (
           <EffectComposer>
             <Bloom 
-              luminanceThreshold={0.2} // MY FUCKING EYES
+              luminanceThreshold={0.2}
               luminanceSmoothing={0.9} 
-              intensity={1.5}    
+              intensity={1.5}
             />
           </EffectComposer>
         )}

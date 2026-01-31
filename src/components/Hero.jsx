@@ -3,24 +3,33 @@ import KeyboardModel from './KeyboardModel';
 import PreOrderModal from './PreOrderModal';
 import { supabase } from '../supabaseClient';
 
-//KUPAL 
 export default function Hero() {
-  const [buildColor, setBuildColor] = useState("#34d399");
-  const [isNeon, setIsNeon] = useState(false); 
+  const [config, setConfig] = useState({ 
+    caseColor: "#34d399", 
+    keyColor: "#1e1e1e" 
+  });
+  
+  // DI JAPUN MO LOAD UG TARONG ANIMAL
+  const [isNeon, setIsNeon] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
 
   const handleFinalSubmit = async (email) => {
-    setLoading(true); //LOAD UG TARONG BAH YAWA
+    setLoading(true);
     setIsModalOpen(false);
     const { data, error } = await supabase
       .from('orders')
       .insert([
         { 
           email: email, 
-          configuration: { color: buildColor, model: "Zenith Model-X", neonMode: isNeon } 
+          configuration: { 
+            caseColor: config.caseColor, 
+            keyColor: config.keyColor,
+            model: "Zenith Model-X", 
+            neonMode: isNeon 
+          } 
         },
       ]);
     setLoading(false);
@@ -47,8 +56,8 @@ export default function Hero() {
             </span>
           </h1>
           
-          <div className="space-y-4">
-            {/* NEON MODE HAHAHHHA */}
+          <div className="space-y-6">
+            {/* NEON MODE RAAAAH */}
             <div className="flex items-center justify-center md:justify-start space-x-3">
               <span className={`text-sm font-bold tracking-widest ${isNeon ? "text-emerald-400" : "text-slate-500"}`}>
                 NEON MODE
@@ -61,15 +70,28 @@ export default function Hero() {
               </button>
             </div>
 
-            <p className="text-sm font-bold text-slate-400 uppercase tracking-widest">
-              Select Chassis Finish
-            </p>
-            
-            <div className="flex justify-center md:justify-start space-x-4">
-              <button onClick={() => setBuildColor("#34d399")} className={`w-10 h-10 rounded-full bg-emerald-400 border-2 transition-all ${buildColor === "#34d399" ? "border-white scale-110 ring-2 ring-emerald-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
-              <button onClick={() => setBuildColor("#a855f7")} className={`w-10 h-10 rounded-full bg-purple-500 border-2 transition-all ${buildColor === "#a855f7" ? "border-white scale-110 ring-2 ring-purple-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
-              <button onClick={() => setBuildColor("#f97316")} className={`w-10 h-10 rounded-full bg-orange-500 border-2 transition-all ${buildColor === "#f97316" ? "border-white scale-110 ring-2 ring-orange-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
-              <button onClick={() => setBuildColor("#94a3b8")} className={`w-10 h-10 rounded-full bg-slate-400 border-2 transition-all ${buildColor === "#94a3b8" ? "border-white scale-110 ring-2 ring-slate-400/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+            <div className="space-y-2">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+                  1. Chassis Finish
+                </p>
+                <div className="flex justify-center md:justify-start space-x-3">
+                  <button onClick={() => setConfig({...config, caseColor: "#34d399"})} className={`w-8 h-8 rounded-full bg-emerald-400 border-2 transition-all ${config.caseColor === "#34d399" ? "border-white scale-110 ring-2 ring-emerald-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, caseColor: "#a855f7"})} className={`w-8 h-8 rounded-full bg-purple-500 border-2 transition-all ${config.caseColor === "#a855f7" ? "border-white scale-110 ring-2 ring-purple-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, caseColor: "#f97316"})} className={`w-8 h-8 rounded-full bg-orange-500 border-2 transition-all ${config.caseColor === "#f97316" ? "border-white scale-110 ring-2 ring-orange-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, caseColor: "#94a3b8"})} className={`w-8 h-8 rounded-full bg-slate-400 border-2 transition-all ${config.caseColor === "#94a3b8" ? "border-white scale-110 ring-2 ring-slate-400/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                </div>
+            </div>
+
+            <div className="space-y-2">
+                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
+                  2. Keycap Set
+                </p>
+                <div className="flex justify-center md:justify-start space-x-3">
+                  <button onClick={() => setConfig({...config, keyColor: "#1e1e1e"})} className={`w-8 h-8 rounded-full bg-slate-900 border-2 transition-all ${config.keyColor === "#1e1e1e" ? "border-white scale-110 ring-2 ring-slate-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, keyColor: "#f8fafc"})} className={`w-8 h-8 rounded-full bg-slate-100 border-2 transition-all ${config.keyColor === "#f8fafc" ? "border-white scale-110 ring-2 ring-slate-200/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, keyColor: "#ef4444"})} className={`w-8 h-8 rounded-full bg-red-500 border-2 transition-all ${config.keyColor === "#ef4444" ? "border-white scale-110 ring-2 ring-red-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                  <button onClick={() => setConfig({...config, keyColor: "#06b6d4"})} className={`w-8 h-8 rounded-full bg-cyan-500 border-2 transition-all ${config.keyColor === "#06b6d4" ? "border-white scale-110 ring-2 ring-cyan-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
+                </div>
             </div>
           </div>
 
@@ -84,7 +106,11 @@ export default function Hero() {
         </div>
 
         <div className="h-[300px] md:h-[400px] w-full bg-slate-800/30 rounded-2xl border border-slate-700/50 relative backdrop-blur-sm overflow-hidden order-1 md:order-2 touch-none">
-           <KeyboardModel currentBuildColor={buildColor} isNeon={isNeon} />
+           <KeyboardModel 
+             caseColor={config.caseColor} 
+             keyColor={config.keyColor} 
+             isNeon={isNeon} 
+           />
            <div className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 rounded-full blur-3xl -z-10 pointer-events-none transition-colors duration-500 ${isNeon ? "bg-emerald-500/40" : "bg-emerald-500/20"}`}></div>
         </div>
 
@@ -92,3 +118,6 @@ export default function Hero() {
     </section>
   );
 }
+
+//KAPPOYTA DOIUDKD
+// SEVAGOTH CHASSIS BLUEPRINT
