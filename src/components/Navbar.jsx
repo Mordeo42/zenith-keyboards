@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <nav className="container mx-auto px-6 py-6 flex justify-between items-center relative z-50">
       
-      {/* OOK AT THE LOGO NEO, LOOK AT IT */}
+      {/* LOOK AT THE LOGO NEO, LOOK AT IT */}
       <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 hover:scale-105 transition">
         ZENITH
       </Link>
