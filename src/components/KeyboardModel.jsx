@@ -1,18 +1,10 @@
 import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, PerspectiveCamera, ContactShadows, Environment, RoundedBox } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing'; 
 
-function KeyCap({ position }) {
-    return (
-        <mesh position={position}>
-            <boxGeometry args={[0.25, 0.1, 0.25]} />
-            <meshStandardMaterial color="#1e293b" roughness={0.1} />
-        </mesh>
-    )
-}
-
-// Fucking Cube but with colors (GASIGE RAKOG ILIS ANI YAWA)
-function RotatingCube({ customColor }) {
+// THE FUYCKING CUBE
+function RotatingCube({ customColor, isNeon }) {
   const meshRef = useRef();
 
   useFrame((state, delta) => {
@@ -31,9 +23,12 @@ function RotatingCube({ customColor }) {
     <group ref={meshRef}>
       <RoundedBox args={[4.2, 0.5, 1.8]} radius={0.1} smoothness={4}>
         <meshStandardMaterial 
-          color={customColor} 
+          color={customColor}
           metalness={0.6}
           roughness={0.2}
+          // NI GLOW NA
+          emissive={isNeon ? customColor : "black"}
+          emissiveIntensity={isNeon ? 2 : 0} 
         />
       </RoundedBox>
 
@@ -47,19 +42,34 @@ function RotatingCube({ customColor }) {
   );
 }
 
-export default function KeyboardModel({ currentBuildColor }) {
+export default function KeyboardModel({ currentBuildColor, isNeon }) {
   return (
     <div className="w-full h-full relative">
       <Canvas>
         <PerspectiveCamera makeDefault position={[0, 2, 5]} />
         
-        <ambientLight intensity={0.5} />
-        <Environment preset="city" />
+        {/* NEON MODE */}
+        <ambientLight intensity={isNeon ? 0.2 : 0.5} />
+        <Environment preset="city" /> 
+
+        <RotatingCube customColor={currentBuildColor} isNeon={isNeon} />
         
-        <RotatingCube customColor={currentBuildColor} />
-        
-        <ContactShadows position={[0, -1.5, 0]} opacity={0.4} scale={10} blur={2.5} far={4} />
-        <OrbitControls enableZoom={false} minPolarAngle={Math.PI / 4} maxPolarAngle={Math.PI / 2} />
+        {isNeon && (
+          <EffectComposer>
+            <Bloom 
+              luminanceThreshold={0.2} // MY FUCKING EYES
+              luminanceSmoothing={0.9} 
+              intensity={1.5}    
+            />
+          </EffectComposer>
+        )}
+
+        <OrbitControls 
+          enableZoom={false} 
+          minPolarAngle={Math.PI / 4} 
+          maxPolarAngle={Math.PI / 2} 
+          enablePan={false}
+        />
       </Canvas>
     </div>
   );
