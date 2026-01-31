@@ -32,7 +32,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="min-h-screen flex items-center justify-center relative overflow-hidden py-24 md:py-0">
+    <section id="customize" className="min-h-screen flex items-center justify-center relative overflow-hidden py-24 md:py-0">
       <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-slate-900 via-slate-900 to-black z-0" />
       
       <PreOrderModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onSubmit={handleFinalSubmit} />

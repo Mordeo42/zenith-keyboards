@@ -1,11 +1,15 @@
-import Navbar from './components/Navbar';
-import Hero from './components/Hero'; 
+import Hero from "./components/Hero";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; 
 
-export default function App() {
+function App() {
   return (
-    <div className="bg-slate-900 min-h-screen text-white">
+    <main className="bg-black text-white min-h-screen">
       <Navbar />
-      <Hero /> {}
-    </div>
-  )
+      <Hero />
+      <Footer />
+    </main>
+  );
 }
+
+export default App;
