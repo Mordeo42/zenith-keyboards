@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// hatag mo gcash please
+
 export default function ProductsPage() {
   return (
     <div className="min-h-screen pt-32 px-6">
@@ -31,7 +33,7 @@ export default function ProductsPage() {
           <div className="p-8">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold text-white">Zenith Stealth</h2>
-              <span className="bg-slate-800 text-slate-500 text-xs font-bold px-3 py-1 rounded-full">COMING 2027</span>
+              <span className="bg-slate-800 text-slate-500 text-xs font-bold px-3 py-1 rounded-full">COMING 2027</span> //timetravel nalang sa 
             </div>
             <p className="text-slate-500 mb-6">Silent switches, dampening foam, and a blackout matte finish for office stealth.</p>
             <button disabled className="w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-lg cursor-not-allowed">

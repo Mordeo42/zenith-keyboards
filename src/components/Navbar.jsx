@@ -22,6 +22,11 @@ export default function Navbar() {
           </Link>
         </li>
         <li>
+          <Link to="/community" className="hover:text-emerald-400 cursor-pointer transition">
+            Community
+          </Link>
+        </li>
+        <li>
           <Link to="/about" className="hover:text-emerald-400 cursor-pointer transition">
             About
           </Link>
@@ -40,3 +45,4 @@ export default function Navbar() {
 }
 
 // IKAPILA NAKO GA BALIK BALIK ANI
+// Do I really need to explain everything? Learn on your own.

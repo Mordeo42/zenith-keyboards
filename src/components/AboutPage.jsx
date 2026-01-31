@@ -41,3 +41,5 @@ export default function AboutPage() {
     </div>
   );
 }
+
+// Definitely not AI generated text I assure you :)

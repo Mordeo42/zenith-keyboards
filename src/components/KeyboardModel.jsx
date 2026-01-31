@@ -29,7 +29,7 @@ function RotatingCube({ caseColor, keyColor, isNeon }) {
           emissive={isNeon ? caseColor : "black"}
           emissiveIntensity={isNeon ? 2 : 0} 
         />
-      </RoundedBox>
+      </RoundedBox> //so, mahimo ni siyag rounded rectangle or circle with sharp edges?
 
       {keys.map((pos, index) => (
         <mesh key={index} position={pos}>
@@ -75,3 +75,5 @@ export default function KeyboardModel({ caseColor, keyColor, isNeon }) {
     </div>
   );
 }
+
+// I goon to Ember Heirloom

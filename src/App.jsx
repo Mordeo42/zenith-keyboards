@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AboutPage from "./components/AboutPage";     //OF COURSE THERE'S ANOTHER GHOST ERROR 
 import ProductsPage from "./components/ProductsPage"; 
+import CommunityPage from "./components/CommunityPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/community" element={<CommunityPage />} />
         </Routes>
         
         <Footer />

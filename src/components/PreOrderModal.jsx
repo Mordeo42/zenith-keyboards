@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function PreOrderModal({ isOpen, onClose, onSubmit }) {
   const [email, setEmail] = useState('');
 
-  if (!isOpen) return null;
+  if (!isOpen) return null; // abrihi ko please
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -19,8 +19,8 @@ export default function PreOrderModal({ isOpen, onClose, onSubmit }) {
           onClick={onClose}
           className="absolute top-4 right-4 text-slate-500 hover:text-white transition"
         >
-          ✕
-        </button>
+          ✕ 
+        </button> 
 
         <h2 className="text-2xl font-bold text-white mb-2">Secure Your Build</h2>
         <p className="text-slate-400 mb-6 text-sm">
@@ -54,3 +54,5 @@ export default function PreOrderModal({ isOpen, onClose, onSubmit }) {
     </div>
   );
 }
+
+// Update: I still goon to Ember Heirloom

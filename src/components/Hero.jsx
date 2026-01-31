@@ -27,16 +27,16 @@ export default function Hero() {
           configuration: { 
             caseColor: config.caseColor, 
             keyColor: config.keyColor,
-            model: "Zenith Model-X", 
+            model: "Zenith Model-X", //apila nalang pd si y ug z, kupal
             neonMode: isNeon 
           } 
         },
       ]);
     setLoading(false);
     if (error) {
-      alert("Error saving order: " + error.message);
+      alert("Error saving order: " + error.message); //meaning ana wala kay load, pisonet boy amp
     } else {
-      alert("Success! Check your email for confirmation.");
+      alert("Success! Check your email for confirmation."); //ambi lagi imong email
     }
   };
 
@@ -72,7 +72,7 @@ export default function Hero() {
 
             <div className="space-y-2">
                 <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">
-                  1. Chassis Finish
+                  1. Chassis Finish 
                 </p>
                 <div className="flex justify-center md:justify-start space-x-3">
                   <button onClick={() => setConfig({...config, caseColor: "#34d399"})} className={`w-8 h-8 rounded-full bg-emerald-400 border-2 transition-all ${config.caseColor === "#34d399" ? "border-white scale-110 ring-2 ring-emerald-500/50" : "border-transparent opacity-50 hover:opacity-100"}`} />
