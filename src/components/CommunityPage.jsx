@@ -32,7 +32,7 @@ export default function CommunityPage() {
           Community <span className="text-emerald-400">Builds</span>
         </h1>
         <p className="text-slate-400 text-lg">
-          The latest configurations designed by architects like you.
+          The latest configurations designed by creative people like you.
         </p>
       </div>
 
