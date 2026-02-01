@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); 
+  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
   const handlePreOrderClick = () => {
-    setIsOpen(false); 
+    setIsOpen(false);
     if (location.pathname === '/') {
       const section = document.getElementById('customize');
       if (section) section.scrollIntoView({ behavior: 'smooth' });
@@ -26,12 +26,11 @@ export default function Navbar() {
     <nav className="container mx-auto px-6 py-6 relative z-50">
       <div className="flex justify-between items-center">
         
-        {/* LANTAWA ANG LOGO NEO, ATAY */}
-        <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 z-50">
+        {/* mag design kaya kog akoang logo noh */}
+        <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 z-50 relative">
           ZENITH
         </Link>
 
-        {/* so, bali-bali rani silang duha sa mobile menu, this is the desktop menu */}
         <ul className="hidden md:flex space-x-8 font-medium text-slate-300">
           <li><Link to="/products" className="hover:text-emerald-400 transition">Products</Link></li>
           <li><Link to="/community" className="hover:text-emerald-400 transition">Community</Link></li>
@@ -48,25 +47,24 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* EY EY EY menu para sa mobile */}
+        {/* katong button bitaw, unsay bisaya sa button gani? */}
         <button 
-          className="md:hidden text-white z-50 focus:outline-none"
+          className="md:hidden text-white z-50 focus:outline-none relative"
           onClick={() => setIsOpen(!isOpen)}
         >
           {isOpen ? (
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           ) : (
-            // ambot lang nganong hamburger akong gipili sauna, maybe I was just hungry
             <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z" />
+              <path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z" />
             </svg>
           )}
         </button>
       </div>
 
-      {/* MOBILE MENU, ambot lang nganong dugay ni nako na add */}
+      {/* Mobile menu ig */}
       {isOpen && (
-        <div className="absolute top-0 left-0 w-full h-screen bg-black/95 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white md:hidden">
+        <div className="fixed inset-0 bg-black/95 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white md:hidden z-40">
           <Link to="/products" onClick={handleLinkClick} className="hover:text-emerald-400">Products</Link>
           <Link to="/community" onClick={handleLinkClick} className="hover:text-emerald-400">Community</Link>
           <button onClick={handlePreOrderClick} className="hover:text-emerald-400">Customize</button>
