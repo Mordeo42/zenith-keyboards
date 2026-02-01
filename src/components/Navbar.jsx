@@ -1,45 +1,85 @@
-import React from 'react';
-import { Link } from 'react-router-dom'; 
+import React, { useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false); 
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handlePreOrderClick = () => {
+    setIsOpen(false); 
+    if (location.pathname === '/') {
+      const section = document.getElementById('customize');
+      if (section) section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/');
+      setTimeout(() => {
+        const section = document.getElementById('customize');
+        if (section) section.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    }
+  };
+
+  const handleLinkClick = () => setIsOpen(false);
+
   return (
-    <nav className="container mx-auto px-6 py-6 flex justify-between items-center relative z-50">
-      
-      {/* LOOK AT THE LOGO NEO, LOOK AT IT */}
-      <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 hover:scale-105 transition">
-        ZENITH
-      </Link>
+    <nav className="container mx-auto px-6 py-6 relative z-50">
+      <div className="flex justify-between items-center">
+        
+        {/* LANTAWA ANG LOGO NEO, ATAY */}
+        <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 z-50">
+          ZENITH
+        </Link>
 
-      <ul className="hidden md:flex space-x-8 font-medium text-slate-300">
-        <li>
-          <Link to="/products" className="hover:text-emerald-400 cursor-pointer transition">
-            Products
-          </Link>
-        </li>
-        <li>
-          <Link to="/" className="hover:text-emerald-400 cursor-pointer transition">
-            Customize
-          </Link>
-        </li>
-        <li>
-          <Link to="/community" className="hover:text-emerald-400 cursor-pointer transition">
-            Community
-          </Link>
-        </li>
-        <li>
-          <Link to="/about" className="hover:text-emerald-400 cursor-pointer transition">
-            About
-          </Link>
-        </li>
-      </ul>
+        {/* so, bali-bali rani silang duha sa mobile menu, this is the desktop menu */}
+        <ul className="hidden md:flex space-x-8 font-medium text-slate-300">
+          <li><Link to="/products" className="hover:text-emerald-400 transition">Products</Link></li>
+          <li><Link to="/community" className="hover:text-emerald-400 transition">Community</Link></li>
+          <li><button onClick={handlePreOrderClick} className="hover:text-emerald-400 transition">Customize</button></li>
+          <li><Link to="/about" className="hover:text-emerald-400 transition">About</Link></li>
+        </ul>
 
-      <Link 
-        to="/"
-        className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 px-6 py-2 rounded-full font-bold transition hover:scale-105"
-      >
-        Pre-Order
-      </Link>
+        <div className="hidden md:block">
+          <button 
+            onClick={handlePreOrderClick}
+            className="bg-emerald-500 hover:bg-emerald-400 text-slate-900 px-6 py-2 rounded-full font-bold transition hover:scale-105"
+          >
+            Pre-Order
+          </button>
+        </div>
 
+        {/* EY EY EY menu para sa mobile */}
+        <button 
+          className="md:hidden text-white z-50 focus:outline-none"
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {isOpen ? (
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+          ) : (
+            // ambot lang nganong hamburger akong gipili sauna, maybe I was just hungry
+            <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* MOBILE MENU, ambot lang nganong dugay ni nako na add */}
+      {isOpen && (
+        <div className="absolute top-0 left-0 w-full h-screen bg-black/95 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white md:hidden">
+          <Link to="/products" onClick={handleLinkClick} className="hover:text-emerald-400">Products</Link>
+          <Link to="/community" onClick={handleLinkClick} className="hover:text-emerald-400">Community</Link>
+          <button onClick={handlePreOrderClick} className="hover:text-emerald-400">Customize</button>
+          <Link to="/about" onClick={handleLinkClick} className="hover:text-emerald-400">About</Link>
+          
+          <button 
+            onClick={handlePreOrderClick}
+            className="bg-emerald-500 text-slate-900 px-8 py-3 rounded-full mt-4"
+          >
+            Pre-Order Now
+          </button>
+        </div>
+      )}
     </nav>
   );
 }
