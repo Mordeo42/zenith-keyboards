@@ -33,7 +33,7 @@ export default function ProductsPage() {
           <div className="p-8">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-2xl font-bold text-white">Zenith Stealth</h2>
-              <span className="bg-slate-800 text-slate-500 text-xs font-bold px-3 py-1 rounded-full">COMING 2027</span> //timetravel nalang sa 
+              <span className="bg-slate-800 text-slate-500 text-xs font-bold px-3 py-1 rounded-full">COMING 2027</span>
             </div>
             <p className="text-slate-500 mb-6">Silent switches, dampening foam, and a blackout matte finish for office stealth.</p>
             <button disabled className="w-full bg-slate-800 text-slate-500 font-bold py-3 rounded-lg cursor-not-allowed">
@@ -46,3 +46,5 @@ export default function ProductsPage() {
     </div>
   );
 }
+
+// kay mo time travel mn daw ko padulong 2027
