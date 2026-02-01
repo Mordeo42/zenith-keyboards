@@ -5,7 +5,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
+                                              //essentially what I did here, is that I made a menu for mobile aron wala lang
   const handlePreOrderClick = () => {
     setIsOpen(false);
     if (location.pathname === '/') {
@@ -23,14 +23,16 @@ export default function Navbar() {
   const handleLinkClick = () => setIsOpen(false);
 
   return (
-    <nav className="container mx-auto px-6 py-6 relative z-50">
-      <div className="flex justify-between items-center">
+    <nav className="fixed top-0 left-0 w-full z-50 bg-black/90 backdrop-blur-md border-b border-white/5 transition-all duration-300">
+      
+      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         
-        {/* mag design kaya kog akoang logo noh */}
+        {/* magpa design nalang kaya kog logo noh? */}
         <Link to="/" className="text-2xl font-bold tracking-tighter text-emerald-400 z-50 relative">
           ZENITH
         </Link>
 
+        {/* I remember when, I remember I remember when I lost my mind */}
         <ul className="hidden md:flex space-x-8 font-medium text-slate-300">
           <li><Link to="/products" className="hover:text-emerald-400 transition">Products</Link></li>
           <li><Link to="/community" className="hover:text-emerald-400 transition">Community</Link></li>
@@ -47,7 +49,7 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* katong button bitaw, unsay bisaya sa button gani? */}
+        {/* yey mobile menu */}
         <button 
           className="md:hidden text-white z-50 focus:outline-none relative"
           onClick={() => setIsOpen(!isOpen)}
@@ -62,9 +64,9 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu ig */}
+      {/* unsay bisaya sa menu? */}
       {isOpen && (
-        <div className="fixed inset-0 bg-black/95 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white md:hidden z-40">
+        <div className="fixed top-0 left-0 w-full h-screen bg-black/95 flex flex-col items-center justify-center space-y-8 text-2xl font-bold text-white md:hidden z-40">
           <Link to="/products" onClick={handleLinkClick} className="hover:text-emerald-400">Products</Link>
           <Link to="/community" onClick={handleLinkClick} className="hover:text-emerald-400">Community</Link>
           <button onClick={handlePreOrderClick} className="hover:text-emerald-400">Customize</button>
