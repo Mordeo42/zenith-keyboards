@@ -1,9 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, PerspectiveCamera, Environment, RoundedBox } from '@react-three/drei';
+import { OrbitControls, PerspectiveCamera, Environment, RoundedBox, PerformanceMonitor } from '@react-three/drei';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 
-// THE FUCKING CUBE
 function RotatingCube({ caseColor, keyColor, isNeon }) {
   const meshRef = useRef();
 
@@ -21,6 +20,7 @@ function RotatingCube({ caseColor, keyColor, isNeon }) {
 
   return (
     <group ref={meshRef}>
+      {/* chase is on the case */}
       <RoundedBox args={[4.2, 0.5, 1.8]} radius={0.1} smoothness={4}>
         <meshStandardMaterial 
           color={caseColor}
@@ -29,8 +29,9 @@ function RotatingCube({ caseColor, keyColor, isNeon }) {
           emissive={isNeon ? caseColor : "black"}
           emissiveIntensity={isNeon ? 2 : 0} 
         />
-      </RoundedBox> //so, mahimo ni siyag rounded rectangle or circle with sharp edges?
+      </RoundedBox>
 
+      {/* KYS */}
       {keys.map((pos, index) => (
         <mesh key={index} position={pos}>
           <boxGeometry args={[0.24, 0.1, 0.24]} />
@@ -45,22 +46,43 @@ function RotatingCube({ caseColor, keyColor, isNeon }) {
 }
 
 export default function KeyboardModel({ caseColor, keyColor, isNeon }) {
+  const [dpr, setDpr] = useState(1.5); 
+  const [highPerf, setHighPerf] = useState(true);
+
   return (
     <div className="w-full h-full relative">
-      <Canvas>
+      <Canvas
+        // Optimized for low-end devices kay luoy biya pd ang dile maka kaya hahays
+        dpr={dpr}
+        gl={{ antialias: false }} 
+      >
+        {/* igo rani siya mobantay i think, if maot ang performance, mo change siya */}
+        <PerformanceMonitor 
+          onDecline={() => { 
+            setDpr(1);       
+            setHighPerf(false); 
+          }} 
+          onIncline={() => {
+             setDpr(1.5);    
+             setHighPerf(true); 
+          }}
+        />
+
         <PerspectiveCamera makeDefault position={[0, 2, 5]} />
         
-        <ambientLight intensity={isNeon ? 0.2 : 0.5} />
+        <ambientLight intensity={isNeon || !highPerf ? 0.8 : 0.5} />
         <Environment preset="city" /> 
 
         <RotatingCube caseColor={caseColor} keyColor={keyColor} isNeon={isNeon} />
         
-        {isNeon && (
-          <EffectComposer>
+        {/* by condition rani siya, if kaya mogana, if dile, tuara */}
+        {isNeon && highPerf && (
+          <EffectComposer disableNormalPass>
             <Bloom 
               luminanceThreshold={0.2}
               luminanceSmoothing={0.9} 
               intensity={1.5}
+              mipmapBlur // if you don;t like blur, deal with it
             />
           </EffectComposer>
         )}
